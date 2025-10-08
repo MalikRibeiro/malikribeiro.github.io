@@ -12,7 +12,7 @@ class PortfolioApp {
     }
 
     init() {
-        this.setupDarkMode();
+        /*this.setupDarkMode();
         this.setupSmoothScrolling();
         this.setupFormHandling();
         this.setupScrollAnimations();
@@ -20,7 +20,7 @@ class PortfolioApp {
         this.setupProgressBars();
         this.setupScrollToTop();
         this.setupNavigation();
-        this.hideLoader();
+        this.hideLoader();*/
     }
 
     // Dark Mode Functionality
@@ -38,19 +38,31 @@ class PortfolioApp {
     }
 
     createDarkModeToggle() {
-        const nav = document.querySelector('.nav');
-        if (!nav) return;
+        // Use existing button from HTML instead of creating a new one
+        const toggleButton = document.getElementById('darkModeToggle');
+        if (!toggleButton) {
+            // Fallback: create button if it doesn't exist
+            const nav = document.querySelector('.nav');
+            if (!nav) return;
 
-        const toggleButton = document.createElement('button');
-        toggleButton.className = 'dark-mode-toggle';
-        toggleButton.innerHTML = this.darkMode ? '☀️' : '🌙';
-        toggleButton.setAttribute('aria-label', 'Toggle dark mode');
-        
-        toggleButton.addEventListener('click', () => {
-            this.toggleDarkMode();
-        });
+            const newToggleButton = document.createElement('button');
+            newToggleButton.className = 'dark-mode-toggle';
+            newToggleButton.id = 'darkModeToggle';
+            newToggleButton.innerHTML = `<span class="sun-icon">${this.darkMode ? '🌙' : '☀️'}</span>`;
+            newToggleButton.setAttribute('aria-label', 'Alternar modo escuro');
+            
+            newToggleButton.addEventListener('click', () => {
+                this.toggleDarkMode();
+            });
 
-        nav.appendChild(toggleButton);
+            nav.appendChild(newToggleButton);
+        } else {
+            // Button exists, just add event listener
+            toggleButton.addEventListener('click', () => {
+                this.toggleDarkMode();
+            });
+            this.updateToggleButton();
+        }
     }
 
     enableDarkMode() {
@@ -78,7 +90,22 @@ class PortfolioApp {
     updateToggleButton() {
         const button = document.querySelector('.dark-mode-toggle');
         if (button) {
-            button.innerHTML = this.darkMode ? '☀️' : '🌙';
+            const sunIcon = button.querySelector('.sun-icon');
+            const moonIcon = button.querySelector('.moon-icon');
+            
+            if (sunIcon && moonIcon) {
+                // Use the span structure
+                if (this.darkMode) {
+                    sunIcon.style.display = 'none';
+                    moonIcon.style.display = 'inline';
+                } else {
+                    sunIcon.style.display = 'inline';
+                    moonIcon.style.display = 'none';
+                }
+            } else {
+                // Fallback to simple innerHTML
+                button.innerHTML = this.darkMode ? '☀️' : '🌙';
+            }
         }
     }
 
@@ -212,7 +239,6 @@ class PortfolioApp {
         const texts = [
             'Analista de Dados',
             'Desenvolvedor BI',
-            'Especialista em Power BI',
             'Programador Python',
             'Aspirante a Dev Web'
         ];
@@ -366,17 +392,17 @@ class PortfolioApp {
 
     // Loader
     hideLoader() {
-        setTimeout(() => {
-            const loader = document.querySelector('.loader');
-            if (loader) {
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 500);
-            }
-            this.isLoading = false;
-        }, 1500);
-    }
+    setTimeout(() => {
+        const loader = document.querySelector('.loader');
+        if (loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        }
+        this.isLoading = false;
+    }, 1500);
+}
 
     // Utility Methods
     debounce(func, wait) {
@@ -405,239 +431,6 @@ class PortfolioApp {
     }
 }
 
-// Additional CSS for dark mode and animations
-const additionalCSS = `
-/* Dark Mode Styles */
-.dark-mode {
-    --bg-primary: #111827;
-    --bg-secondary: #1f2937;
-    --text-primary: #f9fafb;
-    --text-secondary: #d1d5db;
-    --border-color: #374151;
-}
-
-.dark-mode body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-}
-
-.dark-mode .card {
-    background-color: var(--bg-secondary);
-    border-color: var(--border-color);
-}
-
-.dark-mode .bg-gray-50 {
-    background-color: var(--bg-secondary);
-}
-
-.dark-mode .text-gray-600 {
-    color: var(--text-secondary);
-}
-
-.dark-mode .text-gray-900 {
-    color: var(--text-primary);
-}
-
-/* Dark Mode Toggle */
-.dark-mode-toggle {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    transition: background-color 0.2s;
-}
-
-.dark-mode-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.dark-mode .dark-mode-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Mobile Menu Toggle */
-.mobile-menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0.5rem;
-}
-
-@media (max-width: 768px) {
-    .mobile-menu-toggle {
-        display: block;
-    }
-    
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: white;
-        flex-direction: column;
-        padding: 1rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    
-    .dark-mode .nav-links {
-        background: var(--bg-secondary);
-    }
-    
-    .nav-links.mobile-open {
-        display: flex;
-    }
-}
-
-/* Scroll to Top Button */
-.scroll-to-top {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 3rem;
-    height: 3rem;
-    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s;
-    z-index: 1000;
-}
-
-.scroll-to-top.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-.scroll-to-top:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-}
-
-/* Header Scroll Effect */
-.header.scrolled {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-}
-
-.dark-mode .header.scrolled {
-    background: rgba(17, 24, 39, 0.95);
-}
-
-/* Active Navigation */
-.nav-links a.active {
-    color: #3b82f6;
-    font-weight: 600;
-}
-
-/* Form Messages */
-.form-message {
-    margin-top: 1rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    animation: slideIn 0.3s ease-out;
-}
-
-.form-message.success {
-    background-color: #d1fae5;
-    border: 1px solid #10b981;
-    color: #065f46;
-}
-
-.form-message.error {
-    background-color: #fee2e2;
-    border: 1px solid #ef4444;
-    color: #991b1b;
-}
-
-.dark-mode .form-message.success {
-    background-color: #064e3b;
-    color: #a7f3d0;
-}
-
-.dark-mode .form-message.error {
-    background-color: #7f1d1d;
-    color: #fca5a5;
-}
-
-.message-content {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-/* Animations */
-@keyframes slideIn {
-    from {
-        transform: translateY(-10px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.animate-in {
-    animation: fadeInUp 0.6s ease-out;
-}
-
-@keyframes fadeInUp {
-    from {
-        transform: translateY(30px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* Typewriter Effect */
-.typewriter::after {
-    content: '|';
-    animation: blink 1s infinite;
-}
-
-@keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-}
-
-/* Loader */
-.loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity 0.5s;
-}
-
-.dark-mode .loader {
-    background: var(--bg-primary);
-}
-`;
-
-// Inject additional CSS
-const styleSheet = document.createElement('style');
-styleSheet.textContent = additionalCSS;
-document.head.appendChild(styleSheet);
-
 // Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new PortfolioApp();
@@ -645,4 +438,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Export for potential use in other scripts
 window.PortfolioApp = PortfolioApp;
-
