@@ -237,10 +237,13 @@ class PortfolioApp {
         if (!typewriterElement) return;
 
         const texts = [
+            'Auxiliar de Comercialização',
+            'Estudante de ADS',
+            'Entusiasta de RPA',
             'Analista de Dados',
             'Desenvolvedor BI',
             'Programador Python',
-            'Aspirante a Dev Web'
+            'Aspirante a Dev Web',
         ];
 
         let currentTextIndex = 0;

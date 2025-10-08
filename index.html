@@ -45,8 +45,6 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
     
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -232,12 +230,12 @@
         }
         .nav-links { display: flex; gap: 2rem; }
         .nav-links a { 
-            color: #374151; 
+            color: var(--text-secondary);
             text-decoration: none; 
             font-weight: 500; 
             transition: color 0.2s; 
         }
-        .nav-links a:hover { color: #3b82f6; }
+        .nav-links a:hover { color: var(--primary-500); }
         
         /* Loading optimization */
         .lazy-load { opacity: 0; transition: opacity 0.3s; }
@@ -426,7 +424,6 @@
     
     <!-- Preload critical resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style">
-    <link rel="preload" href="/assets/malik-profile.jpg" as="image">
     
     <!-- DNS prefetch for external resources -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
@@ -478,7 +475,7 @@
                     Malik Ribeiro <span class="text-gradient">Mourad</span>
                 </h1>
                 <p class="text-xl">
-                    <span class="typewriter">Auxiliar de Comercialização | Power BI, Excel, RPA | Desenvolvedor BI</span>
+                    <span class="typewriter">Auxiliar de Comercialização | Power BI, Excel, RPA | Desenvolvedor BI<br></span>
                 </p>
                 <p class="text-lg">
                     Curitiba, Paraná, Brasil
@@ -1233,27 +1230,6 @@
         gtag('config', 'GA_TRACKING_ID');
     </script>
     
-    <!-- Performance monitoring -->
-    <script>
-        // Core Web Vitals monitoring
-        function sendToAnalytics(metric) {
-            gtag('event', metric.name, {
-                event_category: 'Web Vitals',
-                value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
-                event_label: metric.id,
-                non_interaction: true,
-            });
-        }
-        
-        // Load web-vitals library
-        import('https://unpkg.com/web-vitals?module').then(({getCLS, getFID, getFCP, getLCP, getTTFB}) => {
-            getCLS(sendToAnalytics);
-            getFID(sendToAnalytics);
-            getFCP(sendToAnalytics);
-            getLCP(sendToAnalytics);
-            getTTFB(sendToAnalytics);
-        });
-    </script>
 </body>
 </html>
 
