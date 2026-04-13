@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import emailjs from '@emailjs/browser'
 
 const Contact = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -9,8 +10,9 @@ const Contact = () => {
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState(null)
+  const [submitStatus, setSubmitStatus] = useState(null) // null | 'success' | 'error'
   const sectionRef = useRef(null)
+  const formRef = useRef(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -47,10 +49,13 @@ const Contact = () => {
     setSubmitStatus(null)
 
     try {
-      // Simulate form submission (replace with actual implementation)
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      // For now, just show success message
+      await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+
       setSubmitStatus('success')
       setFormData({
         name: '',
@@ -59,6 +64,7 @@ const Contact = () => {
         message: ''
       })
     } catch (error) {
+      console.error('Erro ao enviar email:', error)
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)
@@ -69,22 +75,22 @@ const Contact = () => {
     {
       icon: '📧',
       title: 'Email',
-      value: 'malik.ribeiro@email.com',
-      link: 'mailto:malik.ribeiro@email.com',
+      value: 'malik_ribeiromourad@hotmail.com',
+      link: 'mailto:malik_ribeiromourad@hotmail.com',
       description: 'Envie um email para discussões profissionais'
     },
     {
       icon: '📱',
       title: 'WhatsApp',
-      value: '+55 (41) 99999-9999',
-      link: 'https://wa.me/5541999999999',
+      value: '+55 (41) 99834-4388',
+      link: 'https://wa.me/5541998344388',
       description: 'Contato direto via WhatsApp'
     },
     {
       icon: '💼',
       title: 'LinkedIn',
-      value: 'linkedin.com/in/malik-ribeiro-mourad',
-      link: 'https://linkedin.com/in/malik-ribeiro-mourad',
+      value: 'linkedin.com/in/malikribeiro',
+      link: 'https://www.linkedin.com/in/malikribeiro/',
       description: 'Conecte-se comigo no LinkedIn'
     },
     {
@@ -232,7 +238,8 @@ const Contact = () => {
                 Envie uma Mensagem
               </h3>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              {/* formRef added here for EmailJS */}
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -399,4 +406,3 @@ const Contact = () => {
 }
 
 export default Contact
-

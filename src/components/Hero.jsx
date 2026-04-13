@@ -42,8 +42,10 @@ const Hero = () => {
   }
 
   const downloadCV = () => {
-    // Placeholder for CV download functionality
-    alert('Funcionalidade de download do CV será implementada em breve!')
+    const link = document.createElement('a')
+    link.href = '/assets/Curriculo.pdf'
+    link.download = 'Curriculo_Malik_Ribeiro_Mourad.pdf'
+    link.click()
   }
 
   return (
@@ -86,8 +88,8 @@ const Hero = () => {
             </div>
             
             <p className="text-lg sm:text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-              Especialista em Power BI, SQL, Python e Excel na Copel. 
-              Estudante de Análise e Desenvolvimento de Sistemas.
+              Especialista em Power BI, SQL, Python e Excel.
+              Formado em Administração de Empresas e Análise e Desenvolvimento de Sistemas.
             </p>
           </div>
 
@@ -119,7 +121,7 @@ const Hero = () => {
             <p className="text-gray-500 dark:text-gray-400 mb-4">Conecte-se comigo</p>
             <div className="flex justify-center space-x-6">
               <a
-                href="https://linkedin.com/in/malik-ribeiro-mourad"
+                href="https://www.linkedin.com/in/malikribeiro/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transform hover:scale-110 transition-all duration-200"
@@ -143,7 +145,7 @@ const Hero = () => {
               </a>
               
               <a
-                href="https://wa.me/5541999999999"
+                href="https://wa.me/5541998344388"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transform hover:scale-110 transition-all duration-200"

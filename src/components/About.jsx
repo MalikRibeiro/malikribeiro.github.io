@@ -38,7 +38,7 @@ const About = () => {
 
   const stats = [
     { number: '3+', label: 'Anos de Experiência' },
-    { number: '50+', label: 'Projetos Concluídos' },
+    { number: '10+', label: 'Projetos Concluídos' },
     { number: '15+', label: 'Certificações' },
     { number: '100%', label: 'Dedicação' },
   ]
@@ -47,48 +47,45 @@ const About = () => {
     <section id="about" ref={sectionRef} className="section-padding bg-gray-50 dark:bg-gray-800">
       <div className="container-custom">
         <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}>
+          <h2 className={`text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}>
             Sobre <span className="text-gradient">Mim</span>
           </h2>
-          <p className={`text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto transition-all duration-1000 delay-200 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}>
+          <p className={`text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}>
             Conheça minha trajetória profissional e as tecnologias que domino
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Story */}
-          <div className={`transition-all duration-1000 delay-300 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-          }`}>
+          <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+            }`}>
             <div className="card p-8">
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Minha Jornada</h3>
-              
+
               <div className="space-y-6 text-gray-600 dark:text-gray-300">
                 <p>
-                  Iniciei minha trajetória acadêmica cursando <strong>Administração de Empresas</strong> na FAE Centro Universitário. 
-                  Durante a graduação, entrei na <strong>Copel Comercialização</strong>, onde atuei no front administrativo, 
+                  Iniciei minha trajetória acadêmica cursando <strong>Administração de Empresas</strong> na FAE Centro Universitário.
+                  Durante a graduação, entrei na <strong>Copel Comercialização</strong>, onde atuei no front administrativo,
                   prestando suporte para equipe de vendas.
                 </p>
-                
+
                 <p>
-                  No final do meu estágio na Copel Comercialização, fui convidado a contribuir com o projeto 
-                  <strong> Copel Solar</strong>, o que me levou a aprofundar meus conhecimentos em Power BI, 
+                  No final do meu estágio na Copel Comercialização, fui convidado a contribuir com o projeto
+                  <strong> Copel Solar</strong>, o que me levou a aprofundar meus conhecimentos em Power BI,
                   aplicando essa ferramenta na análise de dados para o projeto.
                 </p>
-                
+
                 <p>
-                  Após concluir minha graduação em Administração, decidi expandir meus conhecimentos em tecnologia 
-                  e iniciei o curso de <strong>Análise e Desenvolvimento de Sistemas</strong> na Universidade Positivo. 
+                  Após concluir minha graduação em Administração, decidi expandir meus conhecimentos em tecnologia
+                  e iniciei o curso de <strong>Análise e Desenvolvimento de Sistemas</strong> na Universidade Positivo.
                   Esta nova formação me abriu as portas para atuar na área de TI da Copel, implementando automações com Python.
                 </p>
-                
+
                 <p>
-                  Além disso, busco constantemente me atualizar na área de tecnologia, realizando cursos oferecidos 
-                  por instituições renomadas como Google, Microsoft, Udemy, Sidera e Conquer+. Também obtive a 
+                  Além disso, busco constantemente me atualizar na área de tecnologia, realizando cursos oferecidos
+                  por instituições renomadas como Google, Microsoft, Udemy, Sidera e Conquer+. Também obtive a
                   certificação CPA-10 pela ANBIMA, voltada para o setor de investimentos.
                 </p>
               </div>
@@ -110,12 +107,11 @@ const About = () => {
           </div>
 
           {/* Skills */}
-          <div className={`transition-all duration-1000 delay-500 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
-          }`}>
+          <div className={`transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
+            }`}>
             <div className="card p-8">
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Habilidades Técnicas</h3>
-              
+
               <div className="space-y-6">
                 {skills.map((skill, index) => (
                   <div key={index} className="skill-item">
@@ -128,9 +124,9 @@ const About = () => {
                       </span>
                     </div>
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                      <div 
+                      <div
                         className={`h-2 rounded-full ${skill.color} transition-all duration-1000 ease-out`}
-                        style={{ 
+                        style={{
                           width: isVisible ? `${skill.level}%` : '0%',
                           transitionDelay: `${600 + index * 100}ms`
                         }}
@@ -146,7 +142,7 @@ const About = () => {
                   🎯 Foco Atual
                 </h4>
                 <p className="text-primary-700 dark:text-primary-300 text-sm">
-                  Aprofundando conhecimentos em desenvolvimento web com React, TypeScript e Node.js, 
+                  Aprofundando conhecimentos em desenvolvimento web com React, TypeScript e Node.js,
                   além de estudar arquitetura de software e DevOps.
                 </p>
               </div>
@@ -155,9 +151,8 @@ const About = () => {
         </div>
 
         {/* Values */}
-        <div className={`mt-16 transition-all duration-1000 delay-700 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
+        <div className={`mt-16 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center card p-6 hover:shadow-xl transition-shadow duration-300">
               <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">

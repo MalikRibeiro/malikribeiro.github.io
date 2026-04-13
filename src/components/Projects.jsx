@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { supabase } from '../lib/supabase'
 
 const Projects = () => {
   const [isVisible, setIsVisible] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [selectedProject, setSelectedProject] = useState(null)
+  const [projects, setProjects] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const sectionRef = useRef(null)
 
+  // Intersection Observer for animations
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -27,171 +32,42 @@ const Projects = () => {
     }
   }, [])
 
-  const categories = [
-    { id: 'all', name: 'Todos', count: 8 },
-    { id: 'powerbi', name: 'Power BI', count: 4 },
-    { id: 'python', name: 'Python', count: 3 },
-    { id: 'web', name: 'Web', count: 2 },
-    { id: 'automation', name: 'Automação', count: 3 }
-  ]
+  // Fetch projects from Supabase
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setLoading(true)
+        const { data, error: supabaseError } = await supabase
+          .from('projects')
+          .select('*')
+          .order('id')
 
-  const projects = [
-    {
-      id: 1,
-      title: 'Dashboard Copel Solar',
-      category: 'powerbi',
-      description: 'Dashboard completo para monitoramento de performance de sistemas fotovoltaicos, incluindo análise de geração, economia e sustentabilidade.',
-      image: '🌞',
-      technologies: ['Power BI', 'DAX', 'Power Query', 'SQL'],
-      features: [
-        'Monitoramento em tempo real de geração de energia',
-        'Análise de economia financeira por cliente',
-        'Relatórios de sustentabilidade e CO2 evitado',
-        'Comparativo de performance entre sistemas'
-      ],
-      status: 'Concluído',
-      year: '2022',
-      client: 'Copel',
-      github: null,
-      demo: null
-    },
-    {
-      id: 2,
-      title: 'Automação de Relatórios Financeiros',
-      category: 'python',
-      description: 'Sistema automatizado para geração de relatórios financeiros mensais, reduzindo tempo de processamento de 8 horas para 30 minutos.',
-      image: '💰',
-      technologies: ['Python', 'Pandas', 'Openpyxl', 'SQL Server'],
-      features: [
-        'Extração automática de dados do ERP',
-        'Processamento e limpeza de dados',
-        'Geração automática de gráficos e tabelas',
-        'Envio automático por email'
-      ],
-      status: 'Concluído',
-      year: '2023',
-      client: 'Copel',
-      github: 'https://github.com/MalikRibeiro/financial-automation',
-      demo: null
-    },
-    {
-      id: 3,
-      title: 'Portal de Vendas BI',
-      category: 'powerbi',
-      description: 'Portal interativo para acompanhamento de vendas com KPIs, metas e análise de performance por vendedor e região.',
-      image: '📈',
-      technologies: ['Power BI', 'DAX', 'Power Query', 'SharePoint'],
-      features: [
-        'KPIs de vendas em tempo real',
-        'Análise de performance por vendedor',
-        'Comparativo de metas vs realizado',
-        'Drill-down por região e produto'
-      ],
-      status: 'Concluído',
-      year: '2022',
-      client: 'Copel Comercialização',
-      github: null,
-      demo: null
-    },
-    {
-      id: 4,
-      title: 'Sistema de Controle de Estoque',
-      category: 'python',
-      description: 'Aplicação web para controle de estoque com alertas automáticos, relatórios e integração com sistema ERP.',
-      image: '📦',
-      technologies: ['Python', 'Flask', 'SQLite', 'HTML/CSS', 'JavaScript'],
-      features: [
-        'Cadastro e controle de produtos',
-        'Alertas de estoque baixo',
-        'Relatórios de movimentação',
-        'Interface web responsiva'
-      ],
-      status: 'Em Desenvolvimento',
-      year: '2024',
-      client: 'Projeto Pessoal',
-      github: 'https://github.com/MalikRibeiro/inventory-system',
-      demo: 'https://inventory-demo.malikribeiro.dev'
-    },
-    {
-      id: 5,
-      title: 'Dashboard de RH',
-      category: 'powerbi',
-      description: 'Dashboard para análise de dados de recursos humanos incluindo turnover, absenteísmo e performance.',
-      image: '👥',
-      technologies: ['Power BI', 'DAX', 'Excel', 'Power Query'],
-      features: [
-        'Análise de turnover por departamento',
-        'Métricas de absenteísmo',
-        'Avaliação de performance',
-        'Relatórios de treinamento'
-      ],
-      status: 'Concluído',
-      year: '2023',
-      client: 'Copel',
-      github: null,
-      demo: null
-    },
-    {
-      id: 6,
-      title: 'Automação de Emails',
-      category: 'automation',
-      description: 'Sistema para envio automático de relatórios por email com agendamento e personalização de conteúdo.',
-      image: '📧',
-      technologies: ['Python', 'SMTP', 'Schedule', 'Jinja2'],
-      features: [
-        'Agendamento de envios',
-        'Templates personalizáveis',
-        'Lista de destinatários dinâmica',
-        'Log de envios e erros'
-      ],
-      status: 'Concluído',
-      year: '2023',
-      client: 'Copel',
-      github: 'https://github.com/MalikRibeiro/email-automation',
-      demo: null
-    },
-    {
-      id: 7,
-      title: 'Portfolio Pessoal',
-      category: 'web',
-      description: 'Site portfolio pessoal desenvolvido com React, Tailwind CSS e funcionalidades modernas.',
-      image: '🌐',
-      technologies: ['React', 'Tailwind CSS', 'JavaScript', 'Vite'],
-      features: [
-        'Design responsivo',
-        'Modo claro/escuro',
-        'Animações suaves',
-        'Formulário de contato'
-      ],
-      status: 'Concluído',
-      year: '2024',
-      client: 'Projeto Pessoal',
-      github: 'https://github.com/MalikRibeiro/portfolio',
-      demo: 'https://malikribeiro.github.io'
-    },
-    {
-      id: 8,
-      title: 'Análise de Dados COVID-19',
-      category: 'python',
-      description: 'Análise exploratória de dados da COVID-19 no Paraná com visualizações interativas.',
-      image: '🦠',
-      technologies: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Jupyter'],
-      features: [
-        'Análise temporal de casos',
-        'Visualizações interativas',
-        'Comparativo entre cidades',
-        'Previsões estatísticas'
-      ],
-      status: 'Concluído',
-      year: '2021',
-      client: 'Projeto Acadêmico',
-      github: 'https://github.com/MalikRibeiro/covid-analysis',
-      demo: null
+        if (supabaseError) throw supabaseError
+
+        setProjects(data || [])
+      } catch (err) {
+        console.error('Erro ao buscar projetos:', err)
+        setError('Não foi possível carregar os projetos. Tente novamente mais tarde.')
+      } finally {
+        setLoading(false)
+      }
     }
+
+    fetchProjects()
+  }, [])
+
+  // Build dynamic category list from fetched data
+  const categories = [
+    { id: 'all', name: 'Todos', count: projects.length },
+    ...Array.from(new Set(projects.map(p => p.category))).map(cat => ({
+      id: cat,
+      name: cat.charAt(0).toUpperCase() + cat.slice(1),
+      count: projects.filter(p => p.category === cat).length
+    }))
   ]
 
-  const filteredProjects = selectedCategory === 'all' 
-    ? projects 
+  const filteredProjects = selectedCategory === 'all'
+    ? projects
     : projects.filter(project => project.category === selectedCategory)
 
   const openProjectModal = (project) => {
@@ -218,116 +94,146 @@ const Projects = () => {
           </p>
         </div>
 
-        {/* Category Filter */}
-        <div className={`flex flex-wrap justify-center gap-4 mb-12 transition-all duration-1000 delay-300 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => setSelectedCategory(category.id)}
-              className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
-                selectedCategory === category.id
-                  ? 'bg-primary-600 text-white shadow-lg'
-                  : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600'
-              }`}
-            >
-              {category.name}
-              <span className="ml-2 text-sm opacity-75">({category.count})</span>
-            </button>
-          ))}
-        </div>
+        {/* Loading State */}
+        {loading && (
+          <div className="flex flex-col items-center justify-center py-24">
+            <div className="w-12 h-12 border-4 border-primary-200 dark:border-primary-800 border-t-primary-600 rounded-full animate-spin mb-4"></div>
+            <p className="text-gray-500 dark:text-gray-400">Carregando projetos...</p>
+          </div>
+        )}
 
-        {/* Projects Grid */}
-        <div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-1000 delay-500 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
-          {filteredProjects.map((project, index) => (
-            <div
-              key={project.id}
-              className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer"
-              onClick={() => openProjectModal(project)}
-              style={{ animationDelay: `${600 + index * 100}ms` }}
-            >
-              {/* Project Image/Icon */}
-              <div className="h-48 bg-gradient-to-br from-primary-100 to-secondary-100 dark:from-primary-900 dark:to-secondary-900 rounded-t-xl flex items-center justify-center">
-                <div className="text-6xl">{project.image}</div>
-              </div>
+        {/* Error State */}
+        {!loading && error && (
+          <div className="flex flex-col items-center justify-center py-24">
+            <div className="text-5xl mb-4">⚠️</div>
+            <p className="text-red-600 dark:text-red-400 font-medium text-center max-w-md">{error}</p>
+          </div>
+        )}
 
-              {/* Project Content */}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-3">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    project.status === 'Concluído' 
-                      ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                      : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-                  }`}>
-                    {project.status}
-                  </span>
-                  <span className="text-gray-500 dark:text-gray-400 text-sm">
-                    {project.year}
-                  </span>
-                </div>
-
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                  {project.title}
-                </h3>
-
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
-                  {project.description}
-                </p>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.slice(0, 3).map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.technologies.length > 3 && (
-                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs">
-                      +{project.technologies.length - 3}
-                    </span>
-                  )}
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-2">
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="flex-1 btn-outline text-sm py-2 text-center"
-                    >
-                      GitHub
-                    </a>
-                  )}
-                  {project.demo && (
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="flex-1 btn-primary text-sm py-2 text-center"
-                    >
-                      Demo
-                    </a>
-                  )}
-                  {!project.github && !project.demo && (
-                    <button className="flex-1 btn-primary text-sm py-2">
-                      Ver Detalhes
-                    </button>
-                  )}
-                </div>
-              </div>
+        {/* Content */}
+        {!loading && !error && (
+          <>
+            {/* Category Filter */}
+            <div className={`flex flex-wrap justify-center gap-4 mb-12 transition-all duration-1000 delay-300 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}>
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                    selectedCategory === category.id
+                      ? 'bg-primary-600 text-white shadow-lg'
+                      : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600'
+                  }`}
+                >
+                  {category.name}
+                  <span className="ml-2 text-sm opacity-75">({category.count})</span>
+                </button>
+              ))}
             </div>
-          ))}
-        </div>
+
+            {/* Projects Grid */}
+            <div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-1000 delay-500 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}>
+              {filteredProjects.map((project, index) => (
+                <div
+                  key={project.id}
+                  className="card hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer"
+                  onClick={() => openProjectModal(project)}
+                  style={{ animationDelay: `${600 + index * 100}ms` }}
+                >
+                  {/* Project Image — uses image_url (Supabase Storage) if available, falls back to emoji */}
+                  <div className="h-48 bg-gradient-to-br from-primary-100 to-secondary-100 dark:from-primary-900 dark:to-secondary-900 rounded-t-xl flex items-center justify-center overflow-hidden">
+                    {project.image_url ? (
+                      <img
+                        src={project.image_url}
+                        alt={project.title}
+                        className="w-full h-full object-cover rounded-t-xl"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="text-6xl">{project.image}</div>
+                    )}
+                  </div>
+
+                  {/* Project Content */}
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        project.status === 'Concluído'
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                          : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                      }`}>
+                        {project.status}
+                      </span>
+                      <span className="text-gray-500 dark:text-gray-400 text-sm">
+                        {project.year}
+                      </span>
+                    </div>
+
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                      {project.title}
+                    </h3>
+
+                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
+                      {project.description}
+                    </p>
+
+                    {/* Technologies */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {(project.technologies || []).slice(0, 3).map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {(project.technologies || []).length > 3 && (
+                        <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs">
+                          +{project.technologies.length - 3}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-2">
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="flex-1 btn-outline text-sm py-2 text-center"
+                        >
+                          GitHub
+                        </a>
+                      )}
+                      {project.demo && (
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="flex-1 btn-primary text-sm py-2 text-center"
+                        >
+                          Demo
+                        </a>
+                      )}
+                      {!project.github && !project.demo && (
+                        <button className="flex-1 btn-primary text-sm py-2">
+                          Ver Detalhes
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
 
         {/* Project Modal */}
         {selectedProject && (
@@ -368,7 +274,7 @@ const Projects = () => {
                       <div>
                         <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Status</h4>
                         <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                          selectedProject.status === 'Concluído' 
+                          selectedProject.status === 'Concluído'
                             ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
                             : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
                         }`}>
@@ -388,7 +294,7 @@ const Projects = () => {
                       <div>
                         <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Principais Funcionalidades</h4>
                         <ul className="space-y-2">
-                          {selectedProject.features.map((feature, index) => (
+                          {(selectedProject.features || []).map((feature, index) => (
                             <li key={index} className="flex items-start">
                               <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -402,7 +308,7 @@ const Projects = () => {
                       <div>
                         <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Tecnologias</h4>
                         <div className="flex flex-wrap gap-2">
-                          {selectedProject.technologies.map((tech, index) => (
+                          {(selectedProject.technologies || []).map((tech, index) => (
                             <span
                               key={index}
                               className="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm"
@@ -448,4 +354,3 @@ const Projects = () => {
 }
 
 export default Projects
-

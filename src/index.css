@@ -13,9 +13,7 @@
     @apply font-sans antialiased;
   }
   
-  * {
-    @apply border-border;
-  }
+
 }
 
 @layer components {

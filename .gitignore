@@ -1,0 +1,43 @@
+# ─── Dependências ─────────────────────────────────────────────
+node_modules/
+
+# ─── Variáveis de ambiente (chaves de API!) ───────────────────
+.env
+.env.local
+.env.*.local
+
+# ─── Build do Vite ────────────────────────────────────────────
+# dist/ é gerado pelo CI/CD (GitHub Actions) e não deve ser versionado
+dist/
+
+# ─── Cache do Vite ────────────────────────────────────────────
+.vite/
+
+# ─── Logs ─────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ─── Editores ─────────────────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ─── macOS ────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ─── Windows ──────────────────────────────────────────────────
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ─── Temporários e misc ───────────────────────────────────────
+*.local
