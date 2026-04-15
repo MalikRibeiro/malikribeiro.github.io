@@ -40,7 +40,7 @@ const Projects = () => {
         const { data, error: supabaseError } = await supabase
           .from('projects')
           .select('*')
-          .order('id')
+          .order('year', { ascending: false })
 
         if (supabaseError) throw supabaseError
 
