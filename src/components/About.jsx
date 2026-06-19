@@ -67,26 +67,24 @@ const About = () => {
               <div className="space-y-6 text-gray-600 dark:text-gray-300">
                 <p>
                   Iniciei minha trajetória acadêmica cursando <strong>Administração de Empresas</strong> na FAE Centro Universitário.
-                  Durante a graduação, entrei na <strong>Copel Comercialização</strong>, onde atuei no front administrativo,
-                  prestando suporte para equipe de vendas.
+                  Durante a graduação, entrei na <strong>Copel Comercialização</strong>, onde atuei no suporte administrativo ao comercial
+                  e integrei o projeto <strong>Copel Solar</strong>, aprofundando meus conhecimentos em Power BI.
                 </p>
 
                 <p>
-                  No final do meu estágio na Copel Comercialização, fui convidado a contribuir com o projeto
-                  <strong> Copel Solar</strong>, o que me levou a aprofundar meus conhecimentos em Power BI,
-                  aplicando essa ferramenta na análise de dados para o projeto.
+                  Posteriormente, na área de <strong>TI da Copel</strong>, atuei no desenvolvimento de automações em Python
+                  e criação de dashboards para diversas áreas, além de administrar o ambiente de serviços do Power BI.
                 </p>
 
                 <p>
-                  Após concluir minha graduação em Administração, decidi expandir meus conhecimentos em tecnologia
-                  e iniciei o curso de <strong>Análise e Desenvolvimento de Sistemas</strong> na Universidade Positivo.
-                  Esta nova formação me abriu as portas para atuar na área de TI da Copel, implementando automações com Python.
+                  Em seguida, atuei na <strong>Electra Comercializadora de Energia</strong>, onde desenvolvi automações em Python
+                  para validação de dados com a CCEE, rotinas de envio de relatórios, extração de dados via RPA e dashboards
+                  em Power BI para análise de carteira e risco.
                 </p>
 
                 <p>
-                  Além disso, busco constantemente me atualizar na área de tecnologia, realizando cursos oferecidos
-                  por instituições renomadas como Google, Microsoft, Udemy, Sidera e Conquer+. Também obtive a
-                  certificação CPA-10 pela ANBIMA, voltada para o setor de investimentos.
+                  Busco constantemente me atualizar em tecnologia e no mercado de energia, com certificações pela Google, Microsoft,
+                  Udemy, Alura e CCEE. Também sou certificado <strong>CPA-10</strong> pela ANBIMA.
                 </p>
               </div>
 
@@ -140,11 +138,10 @@ const About = () => {
               <div className="mt-8 p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-200 dark:border-primary-800">
                 <h4 className="font-semibold text-primary-800 dark:text-primary-200 mb-2">
                   🎯 Foco Atual
-                </h4>
-                <p className="text-primary-700 dark:text-primary-300 text-sm">
-                  Aprofundando conhecimentos em desenvolvimento web com React, TypeScript e Node.js,
-                  além de estudar arquitetura de software e DevOps.
-                </p>
+                  <p className="text-primary-700 dark:text-primary-300 text-sm">
+                    Aprofundando conhecimentos em análise de risco e mercado livre de energia, com foco em
+                    Python para automação e modelagem quantitativa, SQL e Power BI.
+                  </p>
               </div>
             </div>
           </div>
