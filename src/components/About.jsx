@@ -138,10 +138,11 @@ const About = () => {
               <div className="mt-8 p-4 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-200 dark:border-primary-800">
                 <h4 className="font-semibold text-primary-800 dark:text-primary-200 mb-2">
                   🎯 Foco Atual
-                  <p className="text-primary-700 dark:text-primary-300 text-sm">
-                    Aprofundando conhecimentos em análise de risco e mercado livre de energia, com foco em
-                    Python para automação e modelagem quantitativa, SQL e Power BI.
-                  </p>
+                </h4>
+                <p className="text-primary-700 dark:text-primary-300 text-sm">
+                  Aprofundando conhecimentos em análise de risco e mercado livre de energia, com foco em
+                  Python para automação e modelagem quantitativa, SQL e Power BI.
+                </p>
               </div>
             </div>
           </div>
